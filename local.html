@@ -163,12 +163,11 @@
                     return res.json();
                 }).then(data => {
                     const det = JSON.parse(data);
-                    if(!det.key)
+                    if(!det.key) {
                         resp = false;
-                        Alert();
-                    setTimeout(function() {
-                        resp = true;
-                    }, 5000);
+                        Flag();
+                    }
+                        
                 })
         }
 
