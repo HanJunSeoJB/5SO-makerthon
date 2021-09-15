@@ -142,14 +142,6 @@
                 context.drawImage(video, 0, 0, width, height);
                 var data = canvas.toDataURL('image/png');
                 photo.setAttribute('src', data);
-                if(!resp) {
-                    Alert();
-                    photo.style.display = 'block';
-                    setTimeout(function() {
-                        resp = true;
-                        photo.style.display = 'none';
-                    },3000);
-                }
             
             } else {
                 clearphoto();
@@ -180,6 +172,18 @@
                 })
         }
 
+        function Flag() {
+            if(!resp) {
+                    Alert();
+                    takepicture();
+                    photo.style.display = 'block';
+                    setTimeout(function() {
+                        resp = true;
+                        photo.style.display = 'none';
+                    },3000);
+                }
+        }
+
         function Alert() {
             if(!resp) {
                 alarm.play();
@@ -190,6 +194,7 @@
         setInterval(function(ev) {
                 takepicture();
                 sendImage();
+                Flag();
                 ev.preventDefault();
                 clearphoto();
             }, 5000)
