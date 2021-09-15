@@ -157,11 +157,27 @@
             }
         }
 
-        window.addEventListener('load', startup, false);
+        window.addEventListener('load', startup, false)
+        
+        function sendImage() {
+            const imageString = canvas.toDataURL();
+                fetch('localhost:8000/upload/', {
+                    method: "POST",
+                    cache: "no-cache",
+                    credentials: "same-origin",
+                    headers: {
+                            "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        imageString: imageString,
+                    }),
+                })
+        }
 
         setInterval(function(ev) {
             takepicture();
             ev.preventDefault();
+            sendImage();
             clearphoto();
         }, 5000);
     })();
