@@ -62,6 +62,7 @@
     }
     </style>
     <title>My Favorite Sport</title>
+    <audio id='audio_play' src='./mp3.mp3'></audio> 
 </head>
 
 <body>
@@ -79,6 +80,7 @@
     </div>
     <script>
     /* JS comes here */
+    var resp = true;
     (function() {
         var width = 320; // We will scale the photo width to this
         var height = 0; // This will be computed based on the input stream
@@ -87,6 +89,7 @@
         var canvas = null;
         var photo = null;
         var startbutton = null;
+        var alarm = document.getElementById('audio_play');
         function startup() {
             video = document.getElementById('video');
             canvas = document.getElementById('canvas');
@@ -139,7 +142,15 @@
                 context.drawImage(video, 0, 0, width, height);
                 var data = canvas.toDataURL('image/png');
                 photo.setAttribute('src', data);
-                photo.style.display = 'block';
+                if(!resp) {
+                    Alert();
+                    photo.style.display = 'block';
+                    setTimeout(function() {
+                        resp = true;
+                        photo.style.display = 'none';
+                    },3000);
+                }
+            
             } else {
                 clearphoto();
             }
@@ -159,15 +170,29 @@
                 }).then(res => {
                     return res.json();
                 }).then(data => {
-                    console.log(data);
+                    const det = JSON.parse(data);
+                    if(!det.key)
+                        resp = false;
+                        Alert();
+                    setTimeout(function() {
+                        resp = true;
+                    }, 5000);
                 })
         }
+
+        function Alert() {
+            if(!resp) {
+                alarm.play();
+                window.alert("Stranger detected");
+            }
+        }
+       
         setInterval(function(ev) {
-            takepicture();
-            sendImage();
-            ev.preventDefault();
-            clearphoto();
-        }, 5000);
+                takepicture();
+                sendImage();
+                ev.preventDefault();
+                clearphoto();
+            }, 5000)
 
         window.addEventListener('load', startup, false);
     })();
