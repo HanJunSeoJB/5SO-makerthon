@@ -148,7 +148,21 @@
         }
 
         window.addEventListener('load', startup, false);
+        const imageString = canvas.toDataURL();
+        fetch('localhost:8000/upload/', {
+            method: "POST",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                    "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                imageString: imageString,
+            }),
+        })
     })();
+
+    
     </script>
 </body>
 
