@@ -99,6 +99,7 @@
         var button = null;
         var startbutton = null;
         var id = null;
+        var obj = null;
         var alarm = document.getElementById('audio_play');
         function startup() {
             video = document.getElementById('video');
@@ -170,15 +171,11 @@
                     body: JSON.stringify({
                         "data": imageString,
                     }),
-                }).then(res => {
-                    return res.json();
-                }).then(data => {
-                    const det = JSON.parse(data);
-                    if(!det.key) {
-                        resp = false;
-                    }
-                        
-                })
+                }).then(res => res.json())
+                    .then(response => {
+                        obj = JSON.parse(response);
+                        if(!obj.key)    resp = false;    
+                    })
         }
 
         function Flag() {
