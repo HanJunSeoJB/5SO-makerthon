@@ -216,7 +216,6 @@
                                 pi.setAttribute('src', obj.img_url);
                                 b.innerHTML=`Person : ${obj.person}`;
                                 a.innerHTML=`Wear : ${split(obj.wear)}`;
-                                window.location.reload();
                         }
                     })
         }
@@ -241,7 +240,7 @@
         var str = code.toString().split(',');
         let i = 0;
         code.forEach(function() {
-            var url = document.createElement('ul');
+            var url = document.createElement('list');
             url.innerHTML=`<li>${str[i]}</li>`;
             document.getElementById('a').appendChild(url);
             i++;
@@ -267,6 +266,7 @@
                             button.style.display = 'none';
                             list.style.display = 'none';
                             pi.style.display = 'none';
+                            window.location.reload();
                             id = setInterval(function() {
                     if(resp) {
                         takepicture();
@@ -285,6 +285,7 @@
                             button.style.display = 'none';
                             list.style.display = 'none';
                             pi.style.display = 'none';
+                            window.location.reload();
                         })
                     }
                    
