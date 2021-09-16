@@ -211,14 +211,7 @@
                                 resp = false;
                                 pi.setAttribute('src', obj.img_url);
                                 b.innerHTML=`Person : ${obj.person}`;
-                                var str = obj.wear.split(',');
-                            let i = 0;
-                            obj.wear.forEach(function() {
-                                var url = document.createElement('list');
-                                url.innerHTML=`<li>${str[i]}</li>`;
-                                document.getElementById('list').appendChild(url);
-                                i++;
-                        });
+                                a.innerHTML=`Wear : ${obj.wear.replace(/,/, " ")}`;
                         }
                     })
         }
@@ -258,6 +251,7 @@
                             button.style.display = 'none';
                             list.style.display = 'none';
                             pi.style.display = 'none';
+                            pi.setAttribute('src', "");
                             id = setInterval(function() {
                     if(resp) {
                         takepicture();
@@ -276,6 +270,7 @@
                             button.style.display = 'none';
                             list.style.display = 'none';
                             pi.style.display = 'none';
+                            pi.setAttribute('src', "");
                         })
                     }
                    
