@@ -25,6 +25,13 @@
         width: 320px;
         height: 240px;
     }
+    #button {
+        display: none;
+        position: relative;
+        top: 270px;
+        right: 50%;
+        left: 160px;
+    }
 
     #canvas {
         display: none;
@@ -76,6 +83,7 @@
         <canvas id="canvas"></canvas>
         <div class="output">
             <img id="photo" alt="The screen capture will appear in this box.">
+            <button id='button'>Confirm</button> 
         </div>
     </div>
     <script>
@@ -88,12 +96,15 @@
         var video = null;
         var canvas = null;
         var photo = null;
+        var button = null;
         var startbutton = null;
+        var id = null;
         var alarm = document.getElementById('audio_play');
         function startup() {
             video = document.getElementById('video');
             canvas = document.getElementById('canvas');
             photo = document.getElementById('photo');
+            button = document.getElementById('button');
             startbutton = document.getElementById('startbutton');
             navigator.mediaDevices.getUserMedia({
                     video: true,
@@ -165,38 +176,43 @@
                     const det = JSON.parse(data);
                     if(!det.key) {
                         resp = false;
-                        Flag();
                     }
                         
                 })
         }
 
         function Flag() {
-            if(!resp) {
                     Alert();
-                    takepicture();
-                    photo.style.display = 'block';
-                    setTimeout(function() {
+                    window.alert("Stranger detected");
+                   /*setTimeout(function() {
                         resp = true;
                         photo.style.display = 'none';
-                    },3000);
+                        button.style.display = 'none';
+                    },3000);*/
                 }
-        }
 
         function Alert() {
             if(!resp) {
                 alarm.play();
-                window.alert("Stranger detected");
             }
         }
-       
-        setInterval(function(ev) {
-                takepicture();
-                sendImage();
-                Flag();
-                ev.preventDefault();
-                clearphoto();
-            }, 5000)
+        id = setInterval(function(ev) {
+                    takepicture();
+                    sendImage();
+                    if(!resp) {
+                        clearInterval(id);
+                        Flag();
+                        photo.style.display = 'block';
+                        button.style.display = 'block'; 
+                        button.addEventListener('click', function() {
+                            resp = true;
+                            photo.style.display = 'none';
+                            button.style.display = 'none';
+                        })
+                    }
+                    ev.preventDefault();
+                    clearphoto();
+                }, 5000)
 
         window.addEventListener('load', startup, false);
     })();
