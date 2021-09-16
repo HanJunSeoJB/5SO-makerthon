@@ -1,6 +1,9 @@
 <!doctype html>
 
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
     <style>
     /* CSS comes here */
     #video {
@@ -111,6 +114,7 @@
         </div>
     </div>
     <script>
+        <script type="text/javascript" src="./jquery-3.3.1.min.js?ver=1.0"/>
     /* JS comes here */
     var resp = true;
     (function() {
@@ -211,7 +215,7 @@
                                 resp = false;
                                 pi.setAttribute('src', obj.img_url);
                                 b.innerHTML=`Person : ${obj.person}`;
-                                a.innerHTML=`Wear : ${obj.wear.replace(/,/, " ")}`;
+                                a.innerHTML=`Wear : ${obj.wear.replace(/,/, "\n")}`;
                         }
                     })
         }
@@ -251,7 +255,6 @@
                             button.style.display = 'none';
                             list.style.display = 'none';
                             pi.style.display = 'none';
-                            pi.setAttribute('src', "");
                             id = setInterval(function() {
                     if(resp) {
                         takepicture();
@@ -270,7 +273,6 @@
                             button.style.display = 'none';
                             list.style.display = 'none';
                             pi.style.display = 'none';
-                            pi.setAttribute('src', "");
                         })
                     }
                    
