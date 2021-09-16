@@ -4,12 +4,11 @@
     <style>
     /* CSS comes here */
     #video {
-        position: relative;
+        position: absolute;
         border: 1px solid black;
         width: 320px;
         height: 240px;
-        left: 50%;
-        top: 20px;
+        top: 100px;
         bottom: 50%;
     }
 
@@ -20,21 +19,40 @@
         width: 320px;
         height: 240px;
         top: 300px;
-        right: 50%;
+        right: 150%;
         border: 1px solid black;
         width: 320px;
         height: 240px;
     }
+
+    #pi {
+        display: none;
+        position: relative;
+        border: 1px solid black;
+        width: 320px;
+        height: 240px;
+        top: 57.5px;
+        border: 1px solid black;
+        width: 320px;
+        height: 240px;
+        right: 180px;
+}
+
     #button {
         display: none;
         position: relative;
-        top: 270px;
-        right: 50%;
-        left: 160px;
+        top: 70px;
+        left: -15%;
     }
 
     #canvas {
         display: none;
+    }
+
+    #list {
+        position: absolute;
+        bottom: 40%;
+        right: 20%;
     }
 
     .camera {
@@ -60,7 +78,15 @@
         font-size: 14px;
         color: rgba(255, 255, 255, 1.0);
         cursor: pointer;
-    } 
+    }
+
+    #wear {
+        display: none;
+    }
+
+    #person {
+        display: none;
+    }
 
     .contentarea {
         font-size: 16px;
@@ -83,7 +109,12 @@
         <canvas id="canvas"></canvas>
         <div class="output">
             <img id="photo" alt="The screen capture will appear in this box.">
+            <img id="pi">
             <button id='button'>Confirm</button> 
+        </div>
+        <div id='list'> 
+                <li id = 'wear'> wear </li>     
+                <li id = 'person'>person</li>
         </div>
     </div>
     <script>
@@ -100,6 +131,9 @@
         var startbutton = null;
         var id = null;
         var obj = null;
+        var a = null;
+        var pi = null;
+        var b = null;
         var alarm = document.getElementById('audio_play');
         function startup() {
             video = document.getElementById('video');
@@ -107,6 +141,9 @@
             photo = document.getElementById('photo');
             button = document.getElementById('button');
             startbutton = document.getElementById('startbutton');
+            a = document.getElementById('wear');
+            pi = document.getElementById('pi');
+            b = document.getElementById('person');
             navigator.mediaDevices.getUserMedia({
                     video: true,
                     audio: false
@@ -175,7 +212,9 @@
                 }).then(res => res.json())
                     .then(response => {
                         obj = JSON.parse(JSON.stringify(response));
-                        if(obj.key == 1)    resp = false;    
+                        if(obj.key == 1) {
+                            resp = false;
+                        }
                     })
         }
 
@@ -205,11 +244,27 @@
                         clearInterval(id);
                         Flag();
                         photo.style.display = 'block';
-                        button.style.display = 'block'; 
+                        button.style.display = 'block';
+                        pi.style.display = 'block';
+                        a.style.display = 'block';
+                        b.style.display = 'block';
+                        pi.setAttribute('src', obj.img_url);
+                        var str = obj.wear.split(',');
+                        let i = 0;
+                        obj.wear.forEach(function() {
+                            var url = document.createElement('list');
+                            url.innerHTML=`<li>${str[i]}</li>`;
+                            document.getElementById('list').appendChild(url);
+                            i++;
+                        });
+                        b.innerHTML=`Person: ${obj.person}`;
                         button.addEventListener('click', function() {
                             resp = true;
                             photo.style.display = 'none';
                             button.style.display = 'none';
+                            pi.style.display = 'none';
+                            a.style.display = 'none';
+                            b.style.display = 'none';
                             id = setInterval(function() {
                     if(resp) {
                         takepicture();
@@ -219,11 +274,18 @@
                         clearInterval(id);
                         Flag();
                         photo.style.display = 'block';
-                        button.style.display = 'block'; 
+                        button.style.display = 'block';
+                        pi.style.display = 'block';
+                        a.style.display = 'block';
+                        b.style.display = 'block';
+                        pi.setAttribute('src', 'tm.jpeg');
                         button.addEventListener('click', function() {
                             resp = true;
                             photo.style.display = 'none';
                             button.style.display = 'none';
+                            pi.style.display = 'none';
+                            a.style.display = 'none';
+                            b.style.display = 'none';
                         })
                     }
                    
