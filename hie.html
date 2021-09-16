@@ -22,22 +22,15 @@
 </body>
 
 <script>
-    var flag = true;
-    var alarm = document.getElementById('audio_play');
-    var button = document.getElementById('testButton');
-    var option = "width 500, height 500";
-    if(!flag) {
-        flag = true;
-        console.log(flag);
-    }
-    else {
-        button.addEventListener('click', (event) => {
-            flag = false;
-            console.log(flag);
-
-        })
-    }
-    
+    fetch('/upload/', {
+  method: 'POST', // or 'PUT'
+  body: JSON.stringify(data), // data can be `string` or {object}!
+  headers:{
+    'Content-Type': 'application/json'
+  }
+}).then(res => res.json())
+.then(response => console.log('Success:', JSON.stringify(response)))
+.catch(error => console.error('Error:', error));
     
 </script>
 </html>
