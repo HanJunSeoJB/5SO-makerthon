@@ -175,7 +175,7 @@
                 }).then(res => res.json())
                     .then(response => {
                         obj = JSON.parse(JSON.stringify(response));
-                        if(!obj.key)    resp = false;    
+                        if(obj.key == 1)    resp = false;    
                     })
         }
 
@@ -196,7 +196,7 @@
         }
         
 
-        id = setInterval(function() {
+        id = setInterval(function(  ) {
                     if(resp) {
                         takepicture();
                         sendImage();
