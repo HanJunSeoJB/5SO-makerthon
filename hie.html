@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<audio id='audio_play' src='./mp3.mp3'></audio> 
+</head>
+<body>
+<button id="testButton">클릭하세요</button>
+<br>
+<div id="display">
+<table border="1" id="table">
+<thead>
+<tr>
+<th>이름</th>
+<th>주소</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</body>
+
+<script>
+    var flag = true;
+    var alarm = document.getElementById('audio_play');
+    var button = document.getElementById('testButton');
+    var option = "width 500, height 500";
+    if(!flag) {
+        flag = true;
+        console.log(flag);
+    }
+    else {
+        button.addEventListener('click', (event) => {
+            flag = false;
+            console.log(flag);
+
+        })
+    }
+    
+    
+</script>
+</html>
