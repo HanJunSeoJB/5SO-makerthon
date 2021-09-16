@@ -215,7 +215,8 @@
                                 resp = false;
                                 pi.setAttribute('src', obj.img_url);
                                 b.innerHTML=`Person : ${obj.person}`;
-                                a.innerHTML=`Wear : ${obj.wear.replace(/,/, "\n")}`;
+                                a.innerHTML=`Wear : ${split(obj.wear)}`;
+                                window.location.reload();
                         }
                     })
         }
@@ -235,6 +236,17 @@
                 alarm.play();
             }
         }
+
+        function split(code) {
+        var str = code.toString().split(',');
+        let i = 0;
+        code.forEach(function() {
+            var url = document.createElement('ul');
+            url.innerHTML=`<li>${str[i]}</li>`;
+            document.getElementById('a').appendChild(url);
+            i++;
+        });
+    }
         
 
         id = setInterval(function(  ) {
