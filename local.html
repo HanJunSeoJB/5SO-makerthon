@@ -138,6 +138,7 @@
             }, false);
             clearphoto();
         }
+        
         function clearphoto() {
             var context = canvas.getContext('2d');
             context.fillStyle = "#AAA";
@@ -173,7 +174,7 @@
                     }),
                 }).then(res => res.json())
                     .then(response => {
-                        obj = JSON.parse(response);
+                        obj = JSON.parse(JSON.stringify(response));
                         if(!obj.key)    resp = false;    
                     })
         }
@@ -193,10 +194,28 @@
                 alarm.play();
             }
         }
-        id = setInterval(function(ev) {
-                    takepicture();
-                    sendImage();
-                    if(!resp) {
+        
+
+        id = setInterval(function() {
+                    if(resp) {
+                        takepicture();
+                        sendImage();
+                    }
+                    else {
+                        clearInterval(id);
+                        Flag();
+                        photo.style.display = 'block';
+                        button.style.display = 'block'; 
+                        button.addEventListener('click', function() {
+                            resp = true;
+                            photo.style.display = 'none';
+                            button.style.display = 'none';
+                            id = setInterval(function() {
+                    if(resp) {
+                        takepicture();
+                        sendImage();
+                    }
+                    else {
                         clearInterval(id);
                         Flag();
                         photo.style.display = 'block';
@@ -207,7 +226,14 @@
                             button.style.display = 'none';
                         })
                     }
-                    ev.preventDefault();
+                   
+                    preventDefault();
+                    clearphoto();
+                }, 5000)
+                        })
+                    }
+                   
+                    preventDefault();
                     clearphoto();
                 }, 5000)
 
