@@ -214,6 +214,8 @@
                         obj = JSON.parse(JSON.stringify(response));
                         if(obj.key == 1) {
                             resp = false;
+                            pi.setAttribute('src', obj.img_url);
+                            b.innerHTML=`Person : ${obj.person}`;
                         }
                     })
         }
@@ -248,23 +250,13 @@
                         pi.style.display = 'block';
                         a.style.display = 'block';
                         b.style.display = 'block';
-                        pi.setAttribute('src', obj.img_url);
-                        var str = obj.wear.split(',');
-                        let i = 0;
-                        obj.wear.forEach(function() {
-                            var url = document.createElement('list');
-                            url.innerHTML=`<li>${str[i]}</li>`;
-                            document.getElementById('list').appendChild(url);
-                            i++;
-                        });
-                        b.innerHTML=`Person: ${obj.person}`;
                         button.addEventListener('click', function() {
                             resp = true;
                             photo.style.display = 'none';
                             button.style.display = 'none';
-                            pi.style.display = 'none';
                             a.style.display = 'none';
                             b.style.display = 'none';
+                            pi.style.display = 'none';
                             id = setInterval(function() {
                     if(resp) {
                         takepicture();
@@ -277,15 +269,14 @@
                         button.style.display = 'block';
                         pi.style.display = 'block';
                         a.style.display = 'block';
-                        b.style.display = 'block';
-                        pi.setAttribute('src', 'tm.jpeg');
+                        b.style.display = 'block'; 
                         button.addEventListener('click', function() {
                             resp = true;
                             photo.style.display = 'none';
                             button.style.display = 'none';
-                            pi.style.display = 'none';
                             a.style.display = 'none';
                             b.style.display = 'none';
+                            pi.style.display = 'none';
                         })
                     }
                    
